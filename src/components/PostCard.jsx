@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import appwriteService from '../Appwrite/auth_service.js'
+import appwriteService from '../Appwrite/appwriteConfig'
 
 function PostCard({$id,title,featuredImage}) {
   return (

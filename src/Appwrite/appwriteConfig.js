@@ -7,8 +7,8 @@ export  class Service{
     bucket;
     constructor() {
         this.client
-        .setEndpoint(appwriteUrl) // Your API Endpoint
-        .setProject(appwriteProjectId)
+        .setEndpoint(config.appwriteUrl) // Your API Endpoint
+        .setProject(config.appwriteProjectId)
         this.databases = new Databases(this.client);
         this.bucket= new Storage(this.client)
 
@@ -97,7 +97,7 @@ export  class Service{
     async uploadFile(file){
         try {
             return await this.bucket.createFile(
-                config.appwriteDatabaseId,
+                config.appwriteBucketId,
                 ID.unique(),
                 file    
             )
@@ -122,7 +122,7 @@ export  class Service{
     
     getFilePreview(fileId){
         return this.bucket.getFilePreview(
-            config.appwriteDatabaseId,
+            config.appwriteBucketId,
             fileId
         )
     }

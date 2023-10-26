@@ -4,19 +4,19 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import appwriteService from "../../Appwrite/appwriteConfig";
-export default function PostForm() {
+export default function PostForm({post}) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
         title: post?.title || "",
         slug: post?.slug || "",
         content: post?.content || "",
-        status: post.status || "active",
+        status: post?.status || "active",
       },
     });
 
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state) => state.auth.userData);
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
@@ -52,12 +52,14 @@ export default function PostForm() {
 
   const slugTransform = useCallback((value) => {
     if (value && typeof value === "string") {
+      if (value && typeof value === "string")
       return value
-        .trim()
-        .toLocaleLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-");
-      return "";
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-zA-Z\d\s]+/g, "-")
+          .replace(/\s/g, "-");
+
+  return "";
     }
   }, []);
 

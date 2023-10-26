@@ -27,7 +27,7 @@ function login() {
   };
 
   return (
-    <div className="flex item-center jusify-center w-full">
+    <div className="flex flex-col justify-center items-center   w-2/4  ">
       <div
         className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
       >
@@ -37,7 +37,7 @@ function login() {
           </span>
         </div>
       </div>
-      <h2 className="text center text-2xl font-bold leading-tight">
+      <h2 className="text center text-2xl font-bold leading-tight mt-6 items-center">
         Sign in to your account
       </h2>
       <p className="mt-2 text-center text-base text-black/60">
@@ -66,9 +66,12 @@ function login() {
             })}
           />
           <Input label="Password" type="Password" placeholder="Enter Your Password" {...register("password",{required:true})}/>
-          <Button type="submit" className="w-full"> Sign In</Button>
+          
+          <Button type="submit" className="w-full" > Sign In</Button>
         </div>
+        
       </form>
+      
     </div>
   );
 }

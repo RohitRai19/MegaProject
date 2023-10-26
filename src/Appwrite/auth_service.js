@@ -1,4 +1,4 @@
-import config from "../Config/Config";
+import Config from "../Config/Config";
 import { Client, Account,ID } from "appwrite";
 
 export class AuthService{
@@ -7,14 +7,14 @@ export class AuthService{
     
     constructor (){
         this.client
-        .setEndpoint(config.appwriteUrl) // Your API Endpoint
-        .setProject(config.appwriteProjectId)
+        .setEndpoint(Config.appwriteUrl) // Your API Endpoint
+        .setProject(Config.appwriteProjectId)
         this.account= new Account(this.client) 
     }
 
     async createAccount({email,password,name}){
         try {
-            const userAccount = await this.account(ID.unique(),email,password,name);
+            const userAccount = await this.account.create(ID.unique(),email,password,name);
             if(userAccount){
                     return this.login({email,password})
             }else{
@@ -33,14 +33,17 @@ export class AuthService{
             throw error;
         }
     }
+    
     async getCurrentUser(){
         try {
               return await this.account.get();
         } catch (error) {
-            console.log("App write service :getCurrentuser::error",error);
+            console.log("App write service :getCurrentUser::error",error);
         }
         return null
     }
+
+
 
     async logOut(){
         try {

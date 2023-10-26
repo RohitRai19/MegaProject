@@ -9,16 +9,17 @@ function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
-  const [register, handleSubmit] = useForm();
+  const {register, handleSubmit} = useForm();
 
   const create = async (data) => {
+    console.log("Signup from component")
     setError("");
     try {
       const userData = await authService.createAccount(data);
       if (userData) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(login(userData));
-        useNavigate("/");
+        navigate("/");
       }
     } catch (error) {
       setError(error.message);
@@ -31,7 +32,7 @@ function Signup() {
       >
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-[100px]">
-            <Logo width="100%" />
+            <Logo width="10%" />
           </span>
         </div>
         <h2 className="text-center text-2xl font-bold leading-tight">
@@ -48,7 +49,7 @@ function Signup() {
         </p>
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-        <Form onSubmit={handleSubmit(create)}>
+        <form onSubmit={handleSubmit(create)}>
           <div className="space-y-5">
             <Input
               label="Full Name: "
@@ -76,7 +77,7 @@ function Signup() {
               Create Account
             </Button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );
